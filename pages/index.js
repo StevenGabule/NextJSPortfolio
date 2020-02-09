@@ -1,7 +1,11 @@
 import React from "react";
+import Link from "next/link";
+import Layout from "../components/Layout";
 
 const Index = () => (
-    <div>Welcome to the page</div>
+    <Layout title={"Home"}>
+        <div>Welcome to the page</div>
+    </Layout>
 );
 
 export default Index;
