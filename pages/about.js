@@ -1,12 +1,34 @@
 import React from "react";
-import Link from "next/link";
 import Layout from "../components/Layout";
+import {Component} from 'react';
+import fetch from "isomorphic-unfetch";
+import Error from "./_error";
 
-export default () => (
-    <Layout title="About">
-        <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus asperiores aspernatur corporis doloremque, dolorum eos exercitationem maiores molestiae obcaecati odio, ratione sapiente voluptates. Assumenda facere numquam odio quas vitae!</p>
-            <img src="/static/282f25b90e4831815dc981727d05bb52.jpg" width="564" alt=""/>
-        </div>
-    </Layout>
-);
+export default class About extends Component {
+
+    static async getInitialProps() {
+        const res = await fetch('https://api.github.com/users/stevengabule');
+        const statusCode = res.status > 200 ? res.status : false;
+        const data = await res.json();
+        return {user: data, statusCode};
+    }
+
+    render() {
+        const {user, statusCode} = this.props;
+
+        if (statusCode) {
+            return <Error statusCode={statusCode} />
+        }
+
+        return (
+            <Layout title="About">
+                <h3>{user.name}</h3>
+                <img src={user.avatar_url} alt={user.name}/>
+                <div>
+                    <p>{user.bio}</p>
+                </div>
+            </Layout>
+        )
+    }
+}
+
