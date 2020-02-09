@@ -15,8 +15,7 @@ Router.onRouteChangeError = () =>  NProgress.done();
 export default ({children, title}) => (
     <div className={"root"}>
         <Head>
-            <title>Portfolio</title>
-            <link href={"https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"} rel={"stylesheet"} />
+            <title>{title}</title>
         </Head>
         <header>
             <Link href={"/"}><a>Home</a></Link>
